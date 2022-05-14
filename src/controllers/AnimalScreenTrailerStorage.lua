@@ -43,10 +43,11 @@ AnimalScreenTrailerStorage = {
 }
 AnimalScreenTrailerStorage_mt = Class(AnimalScreenTrailerStorage, AnimalScreenBase)
 
-function AnimalScreenTrailerStorage.new(trailer, storage, customMt)
+function AnimalScreenTrailerStorage.new(trailer, storage, inputs, customMt)
     local self = AnimalScreenBase.new(customMt or AnimalScreenTrailerStorage_mt)
     self.trailer = trailer -- source
     self.storage = storage --target
+	self.inputs = inputs
 
     return self
 end

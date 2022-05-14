@@ -258,13 +258,43 @@ function AnimalInputScreen:getPrice()
 	return hasCosts, price, fee, total
 end
 
+function AnimalInputScreen:updateStorage()
+    local function addIcons(list, layout)
+		for i = 1, #layout.elements do
+			layout.elements[1]:delete()
+		end
+
+		for index, item in ipairs(list) do
+			if index > 1 then
+				self.recipePlus:clone(layout)
+			end
+
+			if item.amount ~= 1 then
+				local count = self.recipeText:clone(layout)
+
+				count:setText(g_i18n:formatNumber(item.amount, 2))
+			end
+
+			local fillType = g_fillTypeManager:getFillTypeByIndex(item.type)
+			local icon = self.recipeFillIcon:clone(layout)
+
+			icon:setImageFilename(fillType.hudOverlayFilename)
+		end
+
+		layout:invalidateLayout()
+	end
+
+	addIcons(self.controller.inputs, self.detailRecipeInputLayout)
+    self.storageList:reloadData()
+end
+
 function AnimalInputScreen:updateScreen()
     self:updateBalanceText()
 	self.listSource:reloadData()
 	self.headerSource:setText(self.controller:getSourceName())
 	self:updatePrice()
 	self:updateInfoBox()
-    --self:updateStorage() 
+    self:updateStorage()
 end
 
 function AnimalInputScreen:onAnimalsChanged()

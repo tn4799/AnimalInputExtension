@@ -74,10 +74,18 @@ function AnimalInputEvent:run(connection)
         -- remove animals from source object
         local cluster = self.sourceObject:getClusterById(self.clusterId)
         cluster:changeNumAnimals(-self.numAnimals)
-        self.sourceObject:getClusterSystem():updateNow()
+        local clusterSystem = self.sourceObject:getClusterSystem()
+        clusterSystem:updateNow()
 
         -- add fill level to storage
-        --TODO
+        local subType = g_currentMission.animalSystem:getSubTypeByIndex(clusterSystem:getSubTypeIndex())
+        local fillType = g_filltypeManager:getFillTypeByIndex(subType.fillTypeIndex)
+        local fillLevel = self.storage:getFillLevel(fillType)
+
+        local fillLevelPerAnimal = self.storage.animalTypeToLitres[subType]
+        local deltaFillLevel = fillLevelPerAnimal * clusterSystem:getAgeFactor() * clusterSystem:getHealthFactor()
+
+        self.storage:setFillLevel(fillLevel + deltaFillLevel, nil)
 
         connection:sendEvent(AnimalMoveEvent.newServerToClient(AnimalMoveEvent.MOVE_SUCCESS))
     else

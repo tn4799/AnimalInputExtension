@@ -1,29 +1,45 @@
-AnimalInputExtension = {}
-
-AnimalInputExtension.BACKUP_ANIMAL_TO_LITRES = {
-	["COW"] = 1500,
-	["HORSE"] = 1000,
-	["SHEEP"] = 250,
-	["PIG"] = 500,
-	["CHICKEN"] = 100
+AnimalInputStorageExtension = {
+    BACKUP_ANIMAL_TO_LITRES = {
+        ["COW_SWISS_BROWN"] = 1500,
+        ["COW_HOLSTEIN"] = 1500,
+        ["COW_ANGUS"] = 1500,
+        ["COW_LIMOUSIN"] = 1500,
+        ["PIG_LANDRACE"] = 500,
+        ["PIG_BLACK_PIED"] = 500,
+        ["PIG_BERKSHIRE"] = 500,
+        ["SHEEP_LANDRACE"] = 250,
+        ["SHEEP_STEINSCHAF"] = 250,
+        ["SHEEP_SWISS_MOUNTAIN"] = 250,
+        ["SHEEP_BLACK_WELSE"] = 250,
+        ["HORSE_GRAY"] = 1000,
+        ["HORSE_PINTO"] = 1000,
+        ["HORSE_PALOMINO"] = 1000,
+        ["HORSE_CHESTNUT"] = 1000,
+        ["HORSE_BAY"] = 1000,
+        ["HORSE_BLACK"] = 1000,
+        ["HORSE_SEAL_BROWN"] = 1000,
+        ["HORSE_DUN"] = 1000,
+        ["CHICKEN"] = 100,
+        ["CHICKEN_ROOSTER"] = 100
+    }
 }
 
-AnimalInputExtension.animalTypeToLitres = {}
 
-function AnimalInputExtension:loadStorageExtension(components, xmlFile, key, i3dMappings)
+function AnimalInputStorageExtension:loadStorageExtension(components, xmlFile, key, i3dMappings)
     if table.size(self.fillTypes) == 0 then
 		return false
 	end
 
+    self.animalTypeToLitres = {}
     xmlFile:iterate(key .. ".capacity", function (_, capacityKey)
 		local isAnimalFillType = xmlFile:getBool(capacityKey .. "#isAnimalFillType", false)
         local fillTypeName = xmlFile:getValue(capacityKey .. "#fillType")
 
         if isAnimalFillType then
-            local animalType = g_currentMission.animalSystem:getTypeByName(fillTypeName)
+            local animalType = g_currentMission.animalSystem:getSubTypeByName(fillTypeName)
 
             if animalType ~= nil then
-                AnimalInputExtension.animalTypeToLitres[animalType] = xmlFile:getInt(capacityKey .. "#litersPerAnimal", AnimalInputExtension.BACKUP_ANIMAL_TO_LITRES[animalType] or 500)
+                AnimalInputStorageExtension.animalTypeToLitres[animalType] = xmlFile:getInt(capacityKey .. "#litersPerAnimal", AnimalInputStorageExtension.BACKUP_ANIMAL_TO_LITRES[animalType] or 500)
             end
         end
 	end)
@@ -31,19 +47,20 @@ function AnimalInputExtension:loadStorageExtension(components, xmlFile, key, i3d
     return true
 end
 
-function AnimalInputExtension.registerXMLPaths(schema, basePath)
-    schema:register(XMLValueType.NODE_INDEX, basePath .. ".playerTrigger#node", "", "") 
+function AnimalInputStorageExtension.registerXMLPaths(schema, basePath)
+    schema:register(XMLValueType.NODE_INDEX, basePath .. ".animalInputTrigger#node", "", "") 
 end
 
-function AnimalInputExtension:loadAnimalTrigger(components, xmlFile, key, customEnv, i3dMappings)
-    local animalTriggerNode = xmlFile:getValue(key .. ".playerTrigger#node", nil, components, i3dMappings)
+function AnimalInputStorageExtension:loadAnimalTrigger(components, xmlFile, key, customEnv, i3dMappings)
+    local animalTriggerNode = xmlFile:getValue(key .. ".animalInputTrigger#node", nil, components, i3dMappings)
 
     if animalTriggerNode ~= nil then
         self.animalTrigger = AnimalLoadingTrigger.new(self.isServer, self.isClient)
+        self.animalTrigger:load(animalTriggerNode, self.storage, self.inputs)
     end
 end
 
-Storage.load = Utils.appendedFunction(Storage.load, AnimalInputExtension.loadStorageExtension)
+Storage.load = Utils.appendedFunction(Storage.load, AnimalInputStorageExtension.loadStorageExtension)
 
-ProductionPoint.registerXMLPaths = Utils.appendedFunction(ProductionPoint.registerXMLPaths, AnimalInputExtension.registerXMLPaths)
-ProductionPoint.load = Utils.appendedFunction(ProductionPoint.load, AnimalInputExtension.loadAnimalTrigger)
+ProductionPoint.registerXMLPaths = Utils.appendedFunction(ProductionPoint.registerXMLPaths, AnimalInputStorageExtension.registerXMLPaths)
+ProductionPoint.load = Utils.appendedFunction(ProductionPoint.load, AnimalInputStorageExtension.loadAnimalTrigger)

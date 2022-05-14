@@ -17,8 +17,9 @@ function AnimalInputTrigger.new(isServer, isClient)
     return self
 end
 
-function AnimalInputTrigger:load(node, storage)
+function AnimalInputTrigger:load(node, storage, inputs)
     self.storage = storage
+    self.inputs = inputs
 
     self.triggerNode = node
 
