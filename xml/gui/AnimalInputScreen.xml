@@ -93,9 +93,9 @@
                         </GuiElement>
                     </GuiElement>
 
-                    <!--GuiElement type="listItem" profile="ingameMenuAnimalsListSectionHeader" name="section">
+                    <GuiElement type="listItem" profile="ingameMenuAnimalsListSectionHeader" name="section">
                         <GuiElement type="text" profile="ingameMenuAnimalsListSectionHeaderText" name="title" />
-                    </GuiElement-->
+                    </GuiElement>
                 </GuiElement>
 
                 <GuiElement type="threePartBitmap" profile="verticalListSliderRightDocked" size="12px 686px" anchors="1 1 0 0">

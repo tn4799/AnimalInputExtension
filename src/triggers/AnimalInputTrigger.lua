@@ -91,7 +91,7 @@ function AnimalInputTrigger:setLoadingTrailer(loadingVehicle)
 		self.loadingVehicle:setLoadingTrigger(self)
 	end
 
-	self:updateActivatableObject()
+	self:updateActivateableObject()
 end
 
 function AnimalInputScreen:showAnimalScreen()

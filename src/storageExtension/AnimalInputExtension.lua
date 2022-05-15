@@ -25,7 +25,9 @@ AnimalInputStorageExtension = {
 }
 
 
-function AnimalInputStorageExtension:loadStorageExtension(components, xmlFile, key, i3dMappings)
+function AnimalInputStorageExtension:loadStorageExtension(superFunc, components, xmlFile, key, i3dMappings)
+    local returnValue = superFunc(self, components, xmlFile, key, i3dMappings)
+
     if table.size(self.fillTypes) == 0 then
 		return false
 	end
@@ -39,28 +41,31 @@ function AnimalInputStorageExtension:loadStorageExtension(components, xmlFile, k
             local animalType = g_currentMission.animalSystem:getSubTypeByName(fillTypeName)
 
             if animalType ~= nil then
-                AnimalInputStorageExtension.animalTypeToLitres[animalType] = xmlFile:getInt(capacityKey .. "#litersPerAnimal", AnimalInputStorageExtension.BACKUP_ANIMAL_TO_LITRES[animalType] or 500)
+                self.animalTypeToLitres[animalType] = xmlFile:getInt(capacityKey .. "#litersPerAnimal", AnimalInputStorageExtension.BACKUP_ANIMAL_TO_LITRES[animalType] or 500)
             end
         end
 	end)
 
-    return true
+    return returnValue
 end
 
 function AnimalInputStorageExtension.registerXMLPaths(schema, basePath)
     schema:register(XMLValueType.NODE_INDEX, basePath .. ".animalInputTrigger#node", "", "") 
 end
 
-function AnimalInputStorageExtension:loadAnimalTrigger(components, xmlFile, key, customEnv, i3dMappings)
+function AnimalInputStorageExtension:loadAnimalTrigger(superFunc, components, xmlFile, key, customEnv, i3dMappings)
+    local returnValue = superFunc(self, components, xmlFile, key, customEnv, i3dMappings)
     local animalTriggerNode = xmlFile:getValue(key .. ".animalInputTrigger#node", nil, components, i3dMappings)
 
     if animalTriggerNode ~= nil then
-        self.animalTrigger = AnimalLoadingTrigger.new(self.isServer, self.isClient)
+        self.animalTrigger = AnimalInputTrigger.new(self.isServer, self.isClient)
         self.animalTrigger:load(animalTriggerNode, self.storage, self.inputs)
     end
+
+    return returnValue
 end
 
-Storage.load = Utils.appendedFunction(Storage.load, AnimalInputStorageExtension.loadStorageExtension)
+Storage.load = Utils.overwrittenFunction(Storage.load, AnimalInputStorageExtension.loadStorageExtension)
 
 ProductionPoint.registerXMLPaths = Utils.appendedFunction(ProductionPoint.registerXMLPaths, AnimalInputStorageExtension.registerXMLPaths)
-ProductionPoint.load = Utils.appendedFunction(ProductionPoint.load, AnimalInputStorageExtension.loadAnimalTrigger)
+ProductionPoint.load = Utils.overwrittenFunction(ProductionPoint.load, AnimalInputStorageExtension.loadAnimalTrigger)

@@ -1,3 +1,5 @@
+source(g_currentModDirectory .."src/controllers/events/AnimalInputEvent.lua")
+
 AnimalScreenTrailerStorage = {
 	L10N = {
 		NAME = "ui_productionPoint",
@@ -19,7 +21,7 @@ AnimalScreenTrailerStorage = {
 			text = "shop_messageTrailerDoesNotExist",
 			warning = true
 		},
-		[AnimalInputEvent.MOVE_ERROR_TARGET_OBJECT_DOES_NOT_EXIST] = {
+		[AnimalInputEvent.MOVE_ERROR_STORAGE_DOES_NOT_EXIST] = {
 			text = "shop_messageHusbandryDoesNotExist",
 			warning = true
 		},
