@@ -8,9 +8,9 @@ AnimalScreenTrailerStorage = {
 		CONFIRM_MOVE_TO_STORAGE = "shop_confirmMoveToProduction",
 		CONFIRM_MOVE_TO_TRAILER = "shop_doYouWantToMoveAnimalsToTrailer"
 	},
-	MOVE_TO_FARM_ERROR_CODE_MAPPING = {
+	MOVE_TO_STORAGE_ERROR_CODE_MAPPING = {
 		[AnimalInputEvent.MOVE_SUCCESS] = {
-			text = "shop_movedToFarm",
+			text = "shop_movedToStorage",
 			warning = false
 		},
 		[AnimalInputEvent.MOVE_ERROR_NO_PERMISSION] = {
@@ -22,7 +22,7 @@ AnimalScreenTrailerStorage = {
 			warning = true
 		},
 		[AnimalInputEvent.MOVE_ERROR_STORAGE_DOES_NOT_EXIST] = {
-			text = "shop_messageHusbandryDoesNotExist",
+			text = "shop_messageStorageDoesNotExist",
 			warning = true
 		},
 		[AnimalInputEvent.MOVE_ERROR_INVALID_CLUSTER] = {
@@ -100,7 +100,7 @@ function AnimalScreenTrailerStorage:getSourceMaxNumAnimals(itemIndex)
 	local item = self.sourceItems[itemIndex]
 	local maxNumAnimals = self:getMaxNumAnimals()
 
-	return math.min(maxNumAnimals, item:getNumAnimals(), self.husbandry:getNumOfFreeAnimalSlots())
+	return math.min(maxNumAnimals, item:getNumAnimals())--TODO: change to animals that fit into storage, self.trailer:getNumOfFreeAnimalSlots())
 end
 
 function AnimalScreenTrailerStorage:applySource(itemIndex, numItems)
@@ -109,14 +109,14 @@ function AnimalScreenTrailerStorage:applySource(itemIndex, numItems)
 	local errorCode = AnimalInputEvent.validate(self.trailer, self.storage, clusterId, numItems, self.trailer:getOwnerFarmId())
 
 	if errorCode ~= nil then
-		local data = AnimalScreenTrailerStorage.MOVE_TO_FARM_ERROR_CODE_MAPPING[errorCode]
+		local data = AnimalScreenTrailerStorage.MOVE_TO_STORAGE_ERROR_CODE_MAPPING[errorCode]
 
 		self.errorCallback(g_i18n:getText(data.text))
 
 		return false
 	end
 
-	local text = g_i18n:getText(AnimalScreenTrailerStorage.L10N_SYMBOL.MOVE_TO_FARM)
+	local text = g_i18n:getText(AnimalScreenTrailerStorage.L10N.MOVE_TO_STORAGE)
 
 	self.actionTypeCallback(AnimalScreenBase.ACTION_TYPE_SOURCE, text)
 	g_messageCenter:subscribe(AnimalInputEvent, self.onAnimalMovedToStorage, self)
@@ -129,7 +129,7 @@ function AnimalScreenTrailerStorage:onAnimalMovedToStorage(errorCode)
 	g_messageCenter:unsubscribe(AnimalInputEvent, self)
 	self.actionTypeCallback(AnimalScreenBase.ACTION_TYPE_NONE, nil)
 
-	local data = AnimalScreenTrailerStorage.MOVE_TO_FARM_ERROR_CODE_MAPPING[errorCode]
+	local data = AnimalScreenTrailerStorage.MOVE_TO_STORAGE_ERROR_CODE_MAPPING[errorCode]
 
 	self.sourceActionFinished(data.isWarning, g_i18n:getText(data.text))
 end

@@ -94,7 +94,7 @@ function AnimalInputTrigger:setLoadingTrailer(loadingVehicle)
 	self:updateActivateableObject()
 end
 
-function AnimalInputScreen:showAnimalScreen()
+function AnimalInputTrigger:showAnimalScreen()
     if self.loadingVehicle == nil then
         g_gui:showInfoDialog({
 			text = g_i18n:getText("shop_messageNoLoadingTrailer")

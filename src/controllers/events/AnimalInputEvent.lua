@@ -24,6 +24,7 @@ function AnimalInputEvent.new(sourceObject, storage, clusterId, numAnimals)
     self.clusterId = clusterId
     self.numAnimals = numAnimals
 
+    print("sorage init: " .. tostring(self.storage))
     return self
 end
 
@@ -51,6 +52,7 @@ function AnimalInputEvent:readStream(streamId, connection)
 		self.storage = NetworkUtil.readNodeObject(streamId)
 		self.clusterId = streamReadInt32(streamId)
 		self.numAnimals = streamReadUInt8(streamId)
+        print("storage: " .. tostring(self.storage))
 	else
 		self.errorCode = streamReadUIntN(streamId, 3)
 	end
@@ -78,16 +80,22 @@ function AnimalInputEvent:run(connection)
         clusterSystem:updateNow()
 
         -- add fill level to storage
-        local subType = g_currentMission.animalSystem:getSubTypeByIndex(clusterSystem:getSubTypeIndex())
-        local fillType = g_filltypeManager:getFillTypeByIndex(subType.fillTypeIndex)
-        local fillLevel = self.storage:getFillLevel(fillType)
+        local subType = g_currentMission.animalSystem:getSubTypeByIndex(cluster:getSubTypeIndex())
+        local fillType = g_fillTypeManager:getFillTypeByIndex(subType.fillTypeIndex)
+        local fillLevel = self.storage:getFillLevel(fillType.index)
 
         local fillLevelPerAnimal = self.storage.animalTypeToLitres[subType]
-        local deltaFillLevel = fillLevelPerAnimal * clusterSystem:getAgeFactor() * clusterSystem:getHealthFactor()
+        local deltaFillLevel = fillLevelPerAnimal * self.numAnimals * cluster:getAgeFactor() * math.max(cluster:getHealthFactor(), 0.1)
 
-        self.storage:setFillLevel(fillLevel + deltaFillLevel, nil)
+        self.storage:setFillLevel(fillLevel + deltaFillLevel, fillType.index)
+        print("added fillLevel to storage")
 
-        connection:sendEvent(AnimalMoveEvent.newServerToClient(AnimalMoveEvent.MOVE_SUCCESS))
+        local fillLevels = self.storage:getFillLevels()
+        for k, v in pairs(fillLevels) do
+            print("key: " .. tostring(k) .. "    value: " .. tostring(v))
+        end
+
+        connection:sendEvent(AnimalInputEvent.newServerToClient(AnimalInputEvent.MOVE_SUCCESS))
     else
         g_messageCenter:publish(AnimalInputEvent, self.errorCode)
     end
@@ -110,7 +118,7 @@ function AnimalInputEvent.validate(sourceObject, storage, clusterId, numAnimals,
         return AnimalInputEvent.MOVE_ERROR_NO_PERMISSION
     end
 
-    local cluster = self.sourceObject:getClusterById(clusterId)
+    local cluster = sourceObject:getClusterById(clusterId)
 
     if cluster == nil then
         return AnimalInputEvent.MOVE_ERROR_INVALID_CLUSTER

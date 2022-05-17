@@ -35,9 +35,9 @@ function AnimalInputStorageExtension:loadStorageExtension(superFunc, components,
     self.animalTypeToLitres = {}
     xmlFile:iterate(key .. ".capacity", function (_, capacityKey)
 		local isAnimalFillType = xmlFile:getBool(capacityKey .. "#isAnimalFillType", false)
-        local fillTypeName = xmlFile:getValue(capacityKey .. "#fillType")
 
         if isAnimalFillType then
+            local fillTypeName = xmlFile:getValue(capacityKey .. "#fillType")
             local animalType = g_currentMission.animalSystem:getSubTypeByName(fillTypeName)
 
             if animalType ~= nil then
@@ -50,7 +50,7 @@ function AnimalInputStorageExtension:loadStorageExtension(superFunc, components,
 end
 
 function AnimalInputStorageExtension.registerXMLPaths(schema, basePath)
-    schema:register(XMLValueType.NODE_INDEX, basePath .. ".animalInputTrigger#node", "", "") 
+    schema:register(XMLValueType.NODE_INDEX, basePath .. ".animalInputTrigger#node", "", "")
 end
 
 function AnimalInputStorageExtension:loadAnimalTrigger(superFunc, components, xmlFile, key, customEnv, i3dMappings)

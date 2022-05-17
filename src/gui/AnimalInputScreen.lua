@@ -95,7 +95,7 @@ function AnimalInputScreen:onGuiSetupFinished()
 end
 
 function AnimalInputScreen:onOpen()
-    AnimalInputScreen:superFunc().onOpen(self)
+    AnimalInputScreen:superClass().onOpen(self)
 
     self.isOpen = true
     self.isUpdating = false
@@ -125,7 +125,7 @@ end
 function AnimalInputScreen:onVehicleLeftTrigger()
     if self.isOpen then
         g_gui:showInfoDialog({
-			text = g_i18n:getText(AnimalScreen.L10N.ERROR_TRAILER_LEFT),
+			text = g_i18n:getText(AnimalInputScreen.L10N.ERROR_TRAILER_LEFT),
 			callback = self.onClickOkVehicleLeft,
 			target = self
 		})
@@ -140,7 +140,7 @@ function AnimalInputScreen:setSelectionState(state)
     self.listSource:setDisabled(state ~= AnimalInputScreen.SELECTION_NONE)
     self.numAnimalsElement:setDisabled(state == AnimalInputScreen.SELECTION_NONE)
 
-    for _, element in ipairs(t) do
+    for _, element in ipairs(self.listSource.elements) do
         element:getAttribute("highlight"):setVisible(state == AnimalInputScreen.SELECTION_SOURCE and self.listSource:getSelectedElement() == element)
     end
 
@@ -223,14 +223,14 @@ function AnimalInputScreen:updateInfoBox(isSourceSelected)
         self.infoName:setText(item:getName())
         self.infoDescription:setText(item:getDescription())
 
-        local infos = items:getInfos()
+        local infos = item:getInfos()
 
         for k, infoTitle in ipairs(self.infoTitle) do
             local info = infos[k]
             local infoValue = self.infoValue[k]
 
-            infoTitle:getVisible(info ~= nil)
-            infoValue:getVisible(info ~= nil)
+            infoTitle:setVisible(info ~= nil)
+            infoValue:setVisible(info ~= nil)
 
             if info ~= nil then
 				infoTitle:setText(infos[k].title)
@@ -249,10 +249,6 @@ function AnimalInputScreen:getPrice()
 		local animalIndex = self.listSource.selectedIndex
 		local numAnimals = self.numAnimalsElement:getState()
 		hasCosts, price, fee, total = self.controller:getSourcePrice(animalIndex, numAnimals)
-	else
-		local animalIndex = self.listTarget.selectedIndex
-		local numAnimals = self.numAnimalsElement:getState()
-		hasCosts, price, fee, total = self.controller:getTargetPrice(animalIndex, numAnimals)
 	end
 
 	return hasCosts, price, fee, total
@@ -284,7 +280,7 @@ function AnimalInputScreen:updateStorage()
 		layout:invalidateLayout()
 	end
 
-	addIcons(self.controller.inputs, self.detailRecipeInputLayout)
+	--addIcons(self.controller.inputs, self.detailRecipeInputLayout)
     self.storageList:reloadData()
 end
 
@@ -295,6 +291,29 @@ function AnimalInputScreen:updateScreen()
 	self:updatePrice()
 	self:updateInfoBox()
     self:updateStorage()
+end
+
+function AnimalInputScreen:getNumberOfItemsInSection(list, section)
+    if not self.isOpen then
+        return 0
+    end
+
+    if list == self.listSource then
+        return #self.controller:getSourceItems()
+    end
+end
+
+function AnimalInputScreen:populateCellForItemInSection(list, section, index, cell)
+    local item = nil
+
+	if list == self.listSource then
+		item = self.controller:getSourceItems()[index]
+	end
+
+	cell:getAttribute("icon"):setImageFilename(item:getFilename())
+	cell:getAttribute("name"):setText(item:getName())
+	cell:getAttribute("price"):setValue(item:getPrice())
+	cell:getAttribute("highlight"):setVisible(false)
 end
 
 function AnimalInputScreen:onAnimalsChanged()
@@ -342,7 +361,7 @@ function AnimalInputScreen:onClickBack()
     AnimalInputScreen:superClass().onClickBack(self)
 
     if self.selectionState == AnimalInputScreen.SELECTION_NONE then
-        self.changeScreen(nil)
+        self:changeScreen(nil)
     else
         self:setSelectionState(AnimalInputScreen.SELECTION_NONE)
     end
@@ -358,7 +377,7 @@ function AnimalInputScreen:onClickApply()
     if self.selectionState == AnimalInputScreen.SELECTION_SOURCE then
         local animalIndex = self.listSource.selectedIndex
         local numAnimals = self.numAnimalsElement:getState()
-        local text = self.controller:getApplySourceConfirmationText()
+        local text = self.controller:getApplySourceConfirmationText(animalIndex, numAnimals)
 
         g_gui:showYesNoDialog({
 			text = text,
@@ -398,7 +417,7 @@ function AnimalInputScreen:onFocusEnterList(isEnteringSourceList, enteredList, p
 
     self.isSourceSelected = isEnteringSourceList
 
-    self.updateInfoBox(isEnteringSourceList)
+    self:updateInfoBox(isEnteringSourceList)
 
     if enteredList.selectedIndex == 0 then
         enteredList:setSelectedIndex(1)
