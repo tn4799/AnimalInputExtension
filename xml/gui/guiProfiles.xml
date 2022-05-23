@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<GUIProfiles>
+    <Presets>
+        <Preset name="colorTransparent" value="0 0 0 0"/>
+
+        <Preset name="colorGlass" value="0.0036 0.0056 0.0065 0.5"/>
+        <!-- <Preset name="colorGlass" value="0.0097 0.0365 0.0550 0.5"/> -->
+        <!-- <Preset name="colorGlass" value="0.015 0.015 0.018 0.6"/> -->
+        <Preset name="colorGlass_50" value="0.0036 0.0056 0.0065 0.25"/>
+
+        <Preset name="colorGlassVeryLight" value="0.715 0.715 0.718 0.04"/>
+        <Preset name="colorGlassExtremelyLight" value="0.915 0.915 0.918 0.15"/>
+        <Preset name="colorGlassMedium" value="0.115 0.115 0.118 0.20"/>
+        <Preset name="colorGlassDark" value="0.015 0.015 0.018 0.65"/>
+        <Preset name="colorGlassLight" value="0.715 0.715 0.718 0.25"/>
+        <Preset name="colorGlassLight_50" value="0.715 0.715 0.718 0.0625"/>
+        <Preset name="colorGlassLight_75" value="0.715 0.715 0.718 0.09375"/>
+        <Preset name="colorGlassVeryDark" value="0.015 0.015 0.018 0.85"/>
+
+        <Preset name="colorMainUI"    value="0.0227 0.5346 0.8519 1.0"/>
+        <Preset name="colorMainUI_80" value="0.0227 0.5346 0.8519 0.8"/>
+        <Preset name="colorMainUI_70" value="0.0227 0.5346 0.8519 0.7"/>
+        <Preset name="colorMainUI_60" value="0.0227 0.5346 0.8519 0.6"/>
+        <Preset name="colorMainUI_50" value="0.0227 0.5346 0.8519 0.5"/>
+        <Preset name="colorMainUI_40" value="0.0227 0.5346 0.8519 0.4"/>
+        <Preset name="colorMainUI_30" value="0.0227 0.5346 0.8519 0.3"/>
+        <Preset name="colorMainUI_20" value="0.0227 0.5346 0.8519 0.2"/>
+        <Preset name="colorMainUI_10" value="0.0227 0.5346 0.8519 0.1"/>
+        <Preset name="colorMainUI_6"  value="0.0227 0.5346 0.8519 0.06"/>
+        <!-- <Preset name="colorMainUI_50" value="0.0260 0.3944 0.7373 0.5"/> -->
+        <Preset name="colorMainUIAlt" value="0.9900 0.4640 0.0010 1"/>
+        <Preset name="colorDisabled" value="0.4 0.4 0.4 1"/>
+
+        <Preset name="colorWhite" value="1 1 1 1"/>
+        <Preset name="colorWhite_50" value="1 1 1 0.5"/>
+        <Preset name="colorWhite_25" value="1 1 1 0.25"/>
+        <Preset name="colorRed" value="0.8069 0.0097 0.0097 1"/>
+        <Preset name="colorRed_50" value="0.8069 0.0097 0.0097 0.5"/>
+        <Preset name="colorRed_75" value="0.8069 0.0097 0.0097 0.75"/>
+        <Preset name="colorDarkRed" value="0.2832 0.0091 0.0091 1"/>
+        <Preset name="colorDarkRed_75" value="0.2832 0.0091 0.0091 0.75"/>
+        <Preset name="colorDarkRed_50" value="0.2832 0.0091 0.0091 0.5"/>
+        <Preset name="colorBlue" value="0.0742 0.4341 0.6939 1"/>
+        <Preset name="colorGreen" value="0.3763 0.6038 0.0782 1"/>
+        <Preset name="colorGreen2" value="0.2122 0.5271 0.0307 1" />
+        <Preset name="colorOrange" value="0.8 0.4 0 1" />
+
+        <Preset name="colorBlack" value="0 0 0 1"/>
+        <Preset name="colorBlack2" value="0.0075 0.0075 0.0075 1"/>
+        <Preset name="colorBlack3" value="0.013 0.013 0.013 1"/>
+        <Preset name="colorBlack3_97" value="0.013 0.013 0.013 0.97"/>
+        <Preset name="colorBlack3_90" value="0.013 0.013 0.013 0.9"/>
+        <Preset name="colorBlack3_70" value="0.013 0.013 0.013 0.7"/>
+        <Preset name="colorBlack3_0" value="0.013 0.013 0.013 0"/>
+
+        <Preset name="colorDarkGrey" value="0.0284 0.0284 0.0284 1"/>
+        <Preset name="colorDarkGrey_0" value="0.0284 0.0284 0.0284 0"/>
+        <Preset name="colorDarkGrey2" value="0.0630 0.0630 0.0630 1"/>
+        <Preset name="colorDarkGrey2_50" value="0.0630 0.0630 0.0630 0.5"/>
+        <Preset name="colorDarkGrey2_70" value="0.0630 0.0630 0.0630 0.7"/>
+        <Preset name="colorDarkGrey3" value="0.0194 0.0194 0.0194 1"/>
+        <Preset name="colorDarkGrey4" value="0.0723 0.0723 0.0723 1"/>
+        <Preset name="colorDarkGrey5" value="0.1356 0.1356 0.1356 1"/>
+        <Preset name="colorDarkGrey6" value="0.03 0.03 0.03 1"/>
+        <Preset name="colorDarkGrey7" value="0.0212 0.0212 0.0212 1"/>
+
+        <Preset name="colorLightGrey" value="0.0482 0.0482 0.0482 1"/>
+
+        <Preset name="colorDescriptionText" value="0.1329 0.2086 0.2232 1"/>
+        <Preset name="colorDescriptionText2" value="0.4000 0.4941 0.5137 1"/>
+        <Preset name="colorDescriptionText3" value="0.1845 0.1845 0.1845 1"/>
+        <Preset name="colorDescriptionText4" value="0.6307 0.6307 0.6307 1"/>
+
+        <Preset name="colorTextOnLight" value="0 0 0 1"/>
+        <Preset name="colorTextOnDark" value="1 1 1 1"/>
+
+        <!-- Content based presets -->
+
+        <Preset name="colorListRowAlternateBackground" value="0.3140 0.8069 1.0000 0.08" />
+        <Preset name="colorListRowBackground" value="0.3140 0.8069 1.0000 0.02" />
+        <Preset name="colorListHeaderBackground" value="0 0 0 0.35" />
+
+        <Preset name="colorSliderBackground" value="$preset_colorGlassLight_50" />
+        <Preset name="colorSlider" value="$preset_colorGlassLight" />
+        <Preset name="colorSliderHighlight" value="$preset_colorGlassMedium" />
+        <Preset name="colorSliderKnob" value="$preset_colorWhite" />
+        <Preset name="colorDialogBackdrop" value="$preset_colorBlack3_97" />
+        <Preset name="colorDialogBackdropMobile" value="$preset_colorBlack3_97" />
+
+        <Preset name="colorItemBgNormal" value="0.0036 0.0056 0.0065 0.5" />
+        <Preset name="colorItemBgSelected" value="0.0036 0.0056 0.0065 0.85" />
+        <Preset name="colorSeparator" value="0.1882 0.2274 0.2274 1" />
+        <Preset name="colorSelectorInactive" value="0.2196 0.2667 0.2784 1" />
+
+        <Preset name="imageFocusBackgroundGradient" value="9px 9px 510px 30px" />
+        <!-- <Preset name="imageFocusBackgroundGradient" value="8px 8px 512px 32px" /> -->
+        <Preset name="colorFocusBackgroundGradient" value="0.0227 0.5346 0.8519 1" />
+        <!--<Preset name="colorFocusBackgroundGradient" value="0.0003 0.2384 0.5467 1 0.0070 0.6172 0.8879 1 0.0003 0.2384 0.5467 1 0.0070 0.6172 0.8879 1" />-->
+
+        <Preset name="imageDoublesidedGradient" value="53px 65px 600px 2px" />
+
+        <Preset name="colorDetailBackground" value="0.3140 0.8069 1.0000 0.04" />
+        <Preset name="colorDialogBackground" value="0 0 0 0.8" />
+
+        <Preset name="colorCharacterCreation" value="0 0.1927 0.3412 1" />
+        <Preset name="colorCharacterCreation_10" value="0 0.1927 0.3412 0.1" />
+        <Preset name="colorCharacterCreation_20" value="0 0.1927 0.3412 0.2" />
+        <Preset name="colorCharacterCreation_30" value="0 0.1927 0.3412 0.3" />
+        <Preset name="colorCharacterCreation_40" value="0 0.1927 0.3412 0.4" />
+        <Preset name="colorCharacterCreation_60" value="0 0.1927 0.3412 0.6" />
+        <Preset name="colorCharacterCreation_70" value="0 0.1927 0.3412 0.7" />
+        <Preset name="colorCharacterCreation_80" value="0 0.1927 0.3412 0.8" />
+        <Preset name="colorCharacterCreation_90" value="0 0.1927 0.3412 0.9" />
+
+        <Preset name="colorHeaderText" value="0.1714 0.2122 0.2270 1" />
+
+        <!-- UVs -->
+        <Preset name="colorUVs" value="10px 1010px 4px 4px"/> <!-- small 4 pixel box in D:\code\lsim2019\bin\dataS\menu\hud\ui_elements_1080p.png -->
+        <Preset name="glassEdgeIconUVs" value="5px 53px 4px 8px"/>
+
+        <Preset name="colorTextShadow" value="0.0630 0.0630 0.0630 0.7"/>
+
+        <Preset name="keyBoardKeyUVs" value="96px 96px 48px 48px"/> <!-- the empty keyboard key -->
+        <Preset name="xbox_A_ButtonUVs" value="630px 342px 36px 36px"/> <!-- default XBOX key -->
+        <Preset name="ps4_X_ButtonUVs" value="822px 342px 36px 36px"/> <!-- default PS4 key -->
+        <Preset name="ps4_O_ButtonUVs" value="870px 342px 36px 36px"/> <!-- default PS4 JP key -->
+        <Preset name="arrowIconUVs" value="294px 342px 24px 36px"/>
+        <Preset name="diskIconUVs" value="48px 96px 48px 48px"/>
+        <Preset name="achievementIconUVs" value="0px 96px 48px 48px"/>
+    </Presets>
+
+    <Traits>
+        <Trait name="debugging">
+            <Value name="debugEnabled" value="true" />
+        </Trait>
+
+        <!-- Often used anchors -->
+        <Trait name="anchorTopLeft">
+            <Value name="anchors" value="0 0 1 1" />
+        </Trait>
+        <Trait name="anchorTopCenter">
+            <Value name="anchors" value="0.5 0.5 1 1" />
+        </Trait>
+        <Trait name="anchorTopRight">
+            <Value name="anchors" value="1 1 1 1" />
+        </Trait>
+        <Trait name="anchorMiddleLeft">
+            <Value name="anchors" value="0 0 0.5 0.5" />
+        </Trait>
+        <Trait name="anchorMiddleCenter">
+            <Value name="anchors" value="0.5 0.5 0.5 0.5" />
+        </Trait>
+        <Trait name="anchorMiddleRight">
+            <Value name="anchors" value="1 1 0.5 0.5" />
+        </Trait>
+        <Trait name="anchorBottomLeft">
+            <Value name="anchors" value="0 0 0 0" />
+        </Trait>
+        <Trait name="anchorBottomCenter">
+            <Value name="anchors" value="0.5 0.5 0 0" />
+        </Trait>
+        <Trait name="anchorBottomRight">
+            <Value name="anchors" value="1 1 0 0" />
+        </Trait>
+        <Trait name="anchorFullscreenScalable">
+            <Value name="anchors" value="0 1 0 1" />
+        </Trait>
+
+        <!-- The default frame with the fat bottom. No background -->
+        <Trait name="defaultGameFrame">
+            <Value name="hasFrame" value="true" />
+            <Value name="frameThickness" value="0dp 0dp 0dp 4px"/>
+            <!-- <Value name="frameLeftColor" value="$preset_colorGlassLight" /> -->
+            <!-- <Value name="frameTopColor" value="$preset_colorGlassLight" /> -->
+            <!-- <Value name="frameRightColor" value="$preset_colorGlassLight" /> -->
+            <Value name="frameBottomColor" value="$preset_colorMainUI" />
+        </Trait>
+
+        <!-- A light gray frame -->
+        <Trait name="lightFrame">
+            <Value name="hasFrame" value="true" />
+            <Value name="frameThickness" value="1dp 1dp 1dp 1dp"/>
+            <Value name="frameLeftColor" value="$preset_colorGlassLight" />
+            <Value name="frameTopColor" value="$preset_colorGlassLight" />
+            <Value name="frameRightColor" value="$preset_colorGlassLight" />
+            <Value name="frameBottomColor" value="$preset_colorGlassLight" />
+        </Trait>
+
+        <!-- Alternate row background. Simply extend the normal row with this trait -->
+        <Trait name="alternateRow">
+            <Value name="imageColor" value="$preset_colorListRowAlternateBackground"/>
+        </Trait>
+
+        <Trait name="alternating">
+            <Value name="alternateBackgroundColor" value="$preset_colorListRowAlternateBackground" />
+        </Trait>
+
+        <Trait name="joinGameScreenFilterOutIcon">
+            <Value name="imageColor" value="1 1 0 1"/>
+        </Trait>
+
+        <Trait name="joinGameScreenFilterOutText">
+            <Value name="textColor" value="1 1 0 1"/>
+        </Trait>
+
+        <Trait name="ingameMenuMapFilterButtonIconInactive">
+            <Value name="imageColor" value="0.3 0.3 0.3 0.6"/>
+            <Value name="imageHighlightedColor" value="0.3 0.3 0.3 1"/>
+            <Value name="imageFocusedColor" value="0.3 0.3 0.3 1"/>
+        </Trait>
+
+        <Trait name="mainMenuLeftsideFrame">
+            <Value name="hasFrame" value="true" />
+            <Value name="frameThickness" value="15px 1dp 1dp 1dp"/>
+            <Value name="frameLeftColor" value="$preset_colorGlassLight" />
+            <Value name="frameTopColor" value="$preset_colorGlassLight" />
+            <Value name="frameRightColor" value="$preset_colorGlassLight" />
+            <Value name="frameBottomColor" value="$preset_colorGlassLight" />
+        </Trait>
+
+        <Trait name="mobilePaginatedList">
+            <Value name="supportsMouseScrolling" value="false" />
+            <Value name="keepSelectedInView" value="true" />
+            <Value name="isPaginated" value="true" />
+            <Value name="focusScrollsList" value="false" />
+        </Trait>
+
+        <Trait name="touchButton">
+            <Value name="isTouchButton" value="true" />
+            <Value name="touchIconFilename" value="g_baseUIFilename"/>
+            <Value name="touchIconRotation" value="0"/>
+
+            <Value name="touchIconColor" value="$preset_colorWhite"/>
+            <Value name="touchIconHighlightedColor" value="$preset_colorMainUI"/>
+            <Value name="touchIconFocusedColor" value="$preset_colorMainUI"/>
+            <Value name="touchIconSelectedColor" value="$preset_colorMainUI"/>
+            <Value name="touchIconDisabledColor" value="$preset_colorDisabled"/>
+        </Trait>
+
+        <Trait name="constructionListIcon">
+            <Value name="size" value="32px 32px"/>
+            <Value name="margin" value="0 5px 8px 5px"/>
+        </Trait>
+    </Traits>
+
+    <Profile name="animalInputCenterBox" extends="emptyPanel" with="anchorMiddleCenter">
+        <Value name="position" value="0 0" />
+        <Value name="size" value="1500px 756px" />
+   </Profile>
+</GUIProfiles>

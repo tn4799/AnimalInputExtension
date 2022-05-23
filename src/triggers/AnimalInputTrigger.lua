@@ -17,8 +17,9 @@ function AnimalInputTrigger.new(isServer, isClient)
     return self
 end
 
-function AnimalInputTrigger:load(node, storage)
+function AnimalInputTrigger:load(node, storage, inputs)
     self.storage = storage
+    self.inputs = inputs
 
     self.triggerNode = node
 
@@ -90,10 +91,10 @@ function AnimalInputTrigger:setLoadingTrailer(loadingVehicle)
 		self.loadingVehicle:setLoadingTrigger(self)
 	end
 
-	self:updateActivatableObject()
+	self:updateActivateableObject()
 end
 
-function AnimalInputScreen:showAnimalScreen()
+function AnimalInputTrigger:showAnimalScreen()
     if self.loadingVehicle == nil then
         g_gui:showInfoDialog({
 			text = g_i18n:getText("shop_messageNoLoadingTrailer")

@@ -5,7 +5,7 @@
     <GuiElement type="bitmap" profile="bgGlow" />
 
     <GuiElement type="bitmap" profile="uiElementContainerFullScreen">
-        <GuiElement type="empty" profile="ingameMenuCenterBox">
+        <GuiElement type="empty" profile="animalInputCenterBox">
             <GuiElement type="empty" profile="animalDealerListBoxLeft">
                 <GuiElement type="text" profile="animalHeaderText" id="headerSource" text="$l10n_animals_dealer"/>
 
@@ -93,9 +93,9 @@
                         </GuiElement>
                     </GuiElement>
 
-                    <!--GuiElement type="listItem" profile="ingameMenuAnimalsListSectionHeader" name="section">
+                    <GuiElement type="listItem" profile="ingameMenuAnimalsListSectionHeader" name="section">
                         <GuiElement type="text" profile="ingameMenuAnimalsListSectionHeaderText" name="title" />
-                    </GuiElement-->
+                    </GuiElement>
                 </GuiElement>
 
                 <GuiElement type="threePartBitmap" profile="verticalListSliderRightDocked" size="12px 686px" anchors="1 1 0 0">
