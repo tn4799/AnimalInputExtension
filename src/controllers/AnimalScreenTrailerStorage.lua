@@ -1,4 +1,4 @@
-source(g_currentModDirectory .."src/controllers/events/AnimalInputEvent.lua")
+source(g_currentModDirectory .. "src/controllers/events/AnimalInputEvent.lua")
 
 AnimalScreenTrailerStorage = {
 	L10N = {
@@ -45,11 +45,11 @@ AnimalScreenTrailerStorage = {
 }
 AnimalScreenTrailerStorage_mt = Class(AnimalScreenTrailerStorage, AnimalScreenBase)
 
-function AnimalScreenTrailerStorage.new(trailer, storage, inputs, customMt)
+function AnimalScreenTrailerStorage.new(trailer, storage, production, customMt)
     local self = AnimalScreenBase.new(customMt or AnimalScreenTrailerStorage_mt)
     self.trailer = trailer -- source
     self.storage = storage --target
-	self.inputs = inputs
+	self.production = production
 
     return self
 end
@@ -98,9 +98,23 @@ end
 
 function AnimalScreenTrailerStorage:getSourceMaxNumAnimals(itemIndex)
 	local item = self.sourceItems[itemIndex]
+
 	local maxNumAnimals = self:getMaxNumAnimals()
 
-	return math.min(maxNumAnimals, item:getNumAnimals())--TODO: change to animals that fit into storage, self.trailer:getNumOfFreeAnimalSlots())
+	return math.min(maxNumAnimals, item:getNumAnimals(), self:fillLevelToAnimals(itemIndex))--TODO: change to animals that fit into storage)
+end
+
+function AnimalScreenTrailerStorage:fillLevelToAnimals(itemIndex)
+	local item = self.sourceItems[itemIndex]
+	local cluster = self.trailer:getClusterById(item:getClusterId())
+	local subType = g_currentMission.animalSystem:getSubTypeByIndex(cluster:getSubTypeIndex())
+    local fillType = g_fillTypeManager:getFillTypeByIndex(subType.fillTypeIndex)
+    local fillLevel = self.storage:getFillLevel(fillType.index)
+	local maxCapacity = self.storage:getCapacity(fillType.index)
+	local freeCapacity = maxCapacity - fillLevel
+	local fillLevelPerAnimal = self.storage.animalTypeToLitres[subType] --* cluster:getAgeFactor() * math.max(cluster:getHealthFactor(), 0.1)
+
+	return math.floor(freeCapacity/fillLevelPerAnimal)
 end
 
 function AnimalScreenTrailerStorage:applySource(itemIndex, numItems)
@@ -132,10 +146,11 @@ function AnimalScreenTrailerStorage:onAnimalMovedToStorage(errorCode)
 	local data = AnimalScreenTrailerStorage.MOVE_TO_STORAGE_ERROR_CODE_MAPPING[errorCode]
 
 	self.sourceActionFinished(data.isWarning, g_i18n:getText(data.text))
-
-	self.sourceActionFinished(data.isWarning, g_i18n:getText(data.text))
 end
 
 function AnimalScreenTrailerStorage:onAnimalsChanged(obj, clusters)
-	
+	if obj == self.trailer then
+		self:initItems()
+		self.animalsChangedCallback()
+	end
 end

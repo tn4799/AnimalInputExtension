@@ -10,16 +10,16 @@ function AnimalInputTrigger.new(isServer, isClient)
     self.title = g_i18n:getText("ui_production")
     self.animals = nil
     self.activatable = AnimalInputTriggerActivateable.new(self)
-    self.isPlayerInRange = false
+    --self.isPlayerInRange = false
     self.loadingVehicle = nil
     self.activatedTarget = nil
 
     return self
 end
 
-function AnimalInputTrigger:load(node, storage, inputs)
+function AnimalInputTrigger:load(node, storage, production)
     self.storage = storage
-    self.inputs = inputs
+    self.production = production
 
     self.triggerNode = node
 
@@ -60,22 +60,22 @@ function AnimalInputTrigger:triggerCallback(triggerId, otherId, onEnter, onLeave
                     g_animalInputScreen:onVehicleLeftTrigger()
                 end
             end
-        elseif g_currentMission.player ~= nil and otherId == g_currentMission.player.rootNode then
+        --[[elseif g_currentMission.player ~= nil and otherId == g_currentMission.player.rootNode then
             if onEnter then
                 self.isPlayerInRange = true
             else
                 self.isPlayerInRange = false
             end
 
-            self:updateActivateableObject()
+            self:updateActivateableObject()]]
         end
     end
 end
 
 function AnimalInputTrigger:updateActivateableObject()
-    if self.loadingVehicle ~= nil or self.isPlayerInRange then
+    if self.loadingVehicle ~= nil then -- or self.isPlayerInRange
         g_currentMission.activatableObjectsSystem:addActivatable(self.activatable)
-    elseif self.loadingVehicle == nil and not self.isPlayerInRange then
+    elseif self.loadingVehicle == nil then --and not self.isPlayerInRange
         g_currentMission.activatableObjectsSystem:removeActivatable(self.activatable)
     end
 end
@@ -106,7 +106,7 @@ function AnimalInputTrigger:showAnimalScreen()
     local controller = nil
 
     if self.loadingVehicle ~= nil then
-        controller = AnimalScreenTrailerStorage.new(self.loadingVehicle, self.storage)
+        controller = AnimalScreenTrailerStorage.new(self.loadingVehicle, self.storage, self.production)
     --elseif self.loadingVehicle == nil and self.isPlayerInRange then --preparation for future version to buy animals
         --controller = AnimalScreenDealerStorage(self.storage)
     end
@@ -144,7 +144,7 @@ function AnimalInputTriggerActivateable:getIsAcitivatable()
 		return false
 	end
 
-    local canAccess = self.owner.storage == nil or self.owner:getOwnerFarmId() == g_currentMission:getFarmId()
+    local canAccess = self.owner.storage == nil or self.owner.production:getOwnerFarmId() == g_currentMission:getFarmId()
 
     if not canAccess then
         return false
@@ -156,7 +156,7 @@ function AnimalInputTriggerActivateable:getIsAcitivatable()
         rootAttachervehicle = self.owner.loadingVehicle.rootVehicle
     end
 
-    return self.owner.isPlayerInRange or rootAttachervehicle == g_currentMission.controlledVehicle
+    return rootAttachervehicle == g_currentMission.controlledVehicle -- or self.owner.isPlayerInRange
 end
 
 function AnimalInputTriggerActivateable:run()

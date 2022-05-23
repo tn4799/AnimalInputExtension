@@ -86,12 +86,6 @@ function AnimalInputEvent:run(connection)
         local deltaFillLevel = fillLevelPerAnimal * self.numAnimals-- * cluster:getAgeFactor() * math.max(cluster:getHealthFactor(), 0.1)
 
         self.storage:setFillLevel(fillLevel + deltaFillLevel, fillType.index)
-        print("added fillLevel to storage " .. tostring(self.storage))
-
-        local fillLevels = self.storage:getFillLevels()
-        for k, v in pairs(fillLevels) do
-            print("key: " .. tostring(k) .. "    value: " .. tostring(v))
-        end
 
         connection:sendEvent(AnimalInputEvent.newServerToClient(AnimalInputEvent.MOVE_SUCCESS))
     else

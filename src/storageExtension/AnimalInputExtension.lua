@@ -59,7 +59,7 @@ function AnimalInputStorageExtension:loadAnimalTrigger(superFunc, components, xm
 
     if animalTriggerNode ~= nil then
         self.animalTrigger = AnimalInputTrigger.new(self.isServer, self.isClient)
-        self.animalTrigger:load(animalTriggerNode, self.storage, self.inputs)
+        self.animalTrigger:load(animalTriggerNode, self.storage, self)
         print("storage at load: " .. tostring(self.storage))
     end
 
@@ -95,4 +95,4 @@ function AnimalInputStorageExtension:updateProduction()
     end
 end
 
-ProductionPoint.updateProduction = Utils.appendedFunction(ProductionPoint.updateProduction, AnimalInputStorageExtension.updateProduction)
+--ProductionPoint.updateProduction = Utils.appendedFunction(ProductionPoint.updateProduction, AnimalInputStorageExtension.updateProduction)
