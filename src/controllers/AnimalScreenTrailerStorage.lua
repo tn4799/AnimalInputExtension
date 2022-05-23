@@ -132,6 +132,8 @@ function AnimalScreenTrailerStorage:onAnimalMovedToStorage(errorCode)
 	local data = AnimalScreenTrailerStorage.MOVE_TO_STORAGE_ERROR_CODE_MAPPING[errorCode]
 
 	self.sourceActionFinished(data.isWarning, g_i18n:getText(data.text))
+
+	self.sourceActionFinished(data.isWarning, g_i18n:getText(data.text))
 end
 
 function AnimalScreenTrailerStorage:onAnimalsChanged(obj, clusters)
