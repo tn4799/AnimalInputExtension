@@ -5,7 +5,7 @@
     <GuiElement type="bitmap" profile="bgGlow" />
 
     <GuiElement type="bitmap" profile="uiElementContainerFullScreen">
-        <GuiElement type="empty" profile="ingameMenuCenterBox">
+        <GuiElement type="empty" profile="animalInputCenterBox">
             <GuiElement type="empty" profile="animalDealerListBoxLeft">
                 <GuiElement type="text" profile="animalHeaderText" id="headerSource" text="$l10n_animals_dealer"/>
 

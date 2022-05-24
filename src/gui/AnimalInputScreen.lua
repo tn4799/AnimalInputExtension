@@ -31,6 +31,10 @@ AnimalInputScreen = {
         -- control buttons
         BUTTON_SELECT = "buttonSelect",
         BUTTON_APPLY = "buttonApply"
+    },
+    STATUS_BAR = {
+        LOW = 0.2,
+        HIGH = 0.8
     }
 }
 
@@ -92,6 +96,8 @@ function AnimalInputScreen:onGuiSetupFinished()
 
 		return self:onFocusEnterList(true, self.listSource, self.listTarget)
 	end
+
+    self.storageList:setDataSource(self)
 end
 
 function AnimalInputScreen:onOpen()
@@ -255,32 +261,6 @@ function AnimalInputScreen:getPrice()
 end
 
 function AnimalInputScreen:updateStorage()
-    local function addIcons(list, layout)
-		for i = 1, #layout.elements do
-			layout.elements[1]:delete()
-		end
-
-		for index, item in ipairs(list) do
-			if index > 1 then
-				self.recipePlus:clone(layout)
-			end
-
-			if item.amount ~= 1 then
-				local count = self.recipeText:clone(layout)
-
-				count:setText(g_i18n:formatNumber(item.amount, 2))
-			end
-
-			local fillType = g_fillTypeManager:getFillTypeByIndex(item.type)
-			local icon = self.recipeFillIcon:clone(layout)
-
-			icon:setImageFilename(fillType.hudOverlayFilename)
-		end
-
-		layout:invalidateLayout()
-	end
-
-	--addIcons(self.controller.inputs, self.detailRecipeInputLayout)
     self.storageList:reloadData()
 end
 
@@ -291,6 +271,78 @@ function AnimalInputScreen:updateScreen()
 	self:updatePrice()
 	self:updateInfoBox()
     self:updateStorage()
+end
+
+function AnimalInputScreen:getNumberOfItemsInSection(list, section)
+    if not self.isOpen then
+        return 0
+    end
+
+    if list == self.listSource then
+        return #self.controller:getSourceItems()
+    else
+        local production = self.controller.production
+        return #production.inputFillTypeIdsArray
+    end
+end
+
+function AnimalInputScreen:getCellTypeForItemInSection(list, section, index)
+	if list == self.storageList then
+		if section == 1 then
+			return "inputCell"
+		end
+	end
+end
+
+function AnimalInputScreen:populateCellForItemInSection(list, section, index, cell)
+    local item = nil
+
+	if list == self.listSource then
+		item = self.controller:getSourceItems()[index]
+
+        cell:getAttribute("icon"):setImageFilename(item:getFilename())
+        cell:getAttribute("name"):setText(item:getName())
+        cell:getAttribute("price"):setValue(item:getPrice())
+        cell:getAttribute("highlight"):setVisible(false)
+    else
+        local fillType = nil
+        local production = self.controller.production
+
+        if section == 1 then
+            fillType = production.inputFillTypeIdsArray[index]
+        end
+
+        if fillType ~= FillType.UNKNOWN then
+			local fillLevel = production:getFillLevel(fillType)
+			local capacity = production:getCapacity(fillType)
+			local fillTypeDesc = g_fillTypeManager:getFillTypeByIndex(fillType)
+
+			cell:getAttribute("icon"):setImageFilename(fillTypeDesc.hudOverlayFilename)
+			cell:getAttribute("fillType"):setText(fillTypeDesc.title)
+			cell:getAttribute("fillLevel"):setText(g_i18n:formatVolume(fillLevel, 0))
+
+			self:setStatusBarValue(cell:getAttribute("bar"), fillLevel / capacity, true)
+		end
+	end
+end
+
+function AnimalInputScreen:setStatusBarValue(statusBarElement, value, lowIsDanger)
+	local profile = "ingameMenuProductionStorageBar"
+
+	if lowIsDanger and value < AnimalInputScreen.STATUS_BAR.LOW or not lowIsDanger and AnimalInputScreen.STATUS_BAR.HIGH < value then
+		profile = "ingameMenuProductionStorageBarDanger"
+	end
+
+	statusBarElement:applyProfile(profile)
+
+	local fullWidth = statusBarElement.parent.absSize[1] - statusBarElement.margin[1] * 2
+	local minSize = 0
+
+	if statusBarElement.startSize ~= nil then
+		minSize = statusBarElement.startSize[1] + statusBarElement.endSize[1]
+	end
+
+	statusBarElement:setSize(math.max(minSize, fullWidth * math.min(1, value)), nil)
 end
 
 function AnimalInputScreen:getNumberOfItemsInSection(list, section)
@@ -319,6 +371,7 @@ end
 function AnimalInputScreen:onAnimalsChanged()
     if not self.isUpdating then
         self:updateScreen()
+        print("updated screen")
     end
 end
 
@@ -472,5 +525,5 @@ end
 function AnimalInputScreen:update(dt)
     AnimalInputScreen:superClass().update(self, dt)
 
-    self:updateBalanceText()
+    self:updateScreen()
 end

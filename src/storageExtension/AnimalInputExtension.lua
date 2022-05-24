@@ -59,7 +59,8 @@ function AnimalInputStorageExtension:loadAnimalTrigger(superFunc, components, xm
 
     if animalTriggerNode ~= nil then
         self.animalTrigger = AnimalInputTrigger.new(self.isServer, self.isClient)
-        self.animalTrigger:load(animalTriggerNode, self.storage, self.inputs)
+        self.animalTrigger:load(animalTriggerNode, self.storage, self)
+        print("storage at load: " .. tostring(self.storage))
     end
 
     return returnValue
@@ -69,3 +70,29 @@ Storage.load = Utils.overwrittenFunction(Storage.load, AnimalInputStorageExtensi
 
 ProductionPoint.registerXMLPaths = Utils.appendedFunction(ProductionPoint.registerXMLPaths, AnimalInputStorageExtension.registerXMLPaths)
 ProductionPoint.load = Utils.overwrittenFunction(ProductionPoint.load, AnimalInputStorageExtension.loadAnimalTrigger)
+
+
+function AnimalInputStorageExtension:updateProduction()
+	local numActiveProductions = #self.activeProductions
+
+	if numActiveProductions > 0 then
+		for n = 1, numActiveProductions do
+			local production = self.activeProductions[n]
+
+			for x = 1, #production.inputs do
+				local input = production.inputs[x]
+				local fillLevel = self.storage:getFillLevel(input.type)
+                if self.name ~= nil then
+                    print("productionPoint: " .. self.name)
+                end
+                print("storage: " .. tostring(self.storage))
+                print("fillLevel: " .. tostring(fillLevel))
+                print("input amount: " .. tostring(input.amount))
+                print("isOwned: " .. tostring(self.isOwned))
+            	self.inputFillLevels[input] = fillLevel	
+			end
+        end
+    end
+end
+
+--ProductionPoint.updateProduction = Utils.appendedFunction(ProductionPoint.updateProduction, AnimalInputStorageExtension.updateProduction)
