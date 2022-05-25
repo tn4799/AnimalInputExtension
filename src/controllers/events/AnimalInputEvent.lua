@@ -83,7 +83,7 @@ function AnimalInputEvent:run(connection)
         local fillLevel = self.storage:getFillLevel(fillType.index)
 
         local fillLevelPerAnimal = self.storage.animalTypeToLitres[subType]
-        local deltaFillLevel = fillLevelPerAnimal * self.numAnimals-- * cluster:getAgeFactor() * math.max(cluster:getHealthFactor(), 0.1)
+        local deltaFillLevel = fillLevelPerAnimal * self.numAnimals * cluster:getAgeFactor() * math.max(cluster:getHealthFactor(), 0.1)
 
         self.storage:setFillLevel(fillLevel + deltaFillLevel, fillType.index)
 
