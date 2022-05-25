@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<modDesc descVersion="66">
+    <author>tn4799</author>
+    <version>1.0.0.0</version>
+
+    <title>
+        <en>Animal Input Extension</en>
+        <de>Tierinputerweiterung</de>
+    </title>
+
+    <multiplayer supported="true"/>
+
+    <description>
+        <en><![CDATA[]]>
+        </en>
+        <de><![CDATA[]]>
+        </de>
+    </description>
+
+    <iconFilename>icon.dds</iconFilename>
+    
+    <extraSourceFiles>
+        <sourceFile filename="src/register.lua" />
+    </extraSourceFiles>
+
+    <l10n filenamePrefix="xml/translations/l10n_" />
+</modDesc>
