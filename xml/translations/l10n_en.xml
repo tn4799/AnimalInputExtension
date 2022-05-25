@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<l10n>
+	<texts>
+		<text name="ERROR_TRAILER_LEFT" 		                text="The transportation vehicle is no longer available!" />
+		<text name="ui_productionPoint" 		                text="Production" />
+		<text name="shop_moveToProduction" 		                text="Move to production" />
+		<text name="shop_moveToTrailer" 		                text="Move to trailer" />
+		<text name="shop_confirmMoveToProduction"				text="Do you want to move %d animals (%s) to the production?"/>
+		<text name="shop_doYouWantToMoveAnimalsToTrailer"		text="Do you want to move %d animals (%s) to the trailer?"/>
+	</texts>
+</l10n>
