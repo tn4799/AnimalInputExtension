@@ -348,7 +348,6 @@ end
 function AnimalInputScreen:onAnimalsChanged()
     if not self.isUpdating then
         self:updateScreen()
-        print("updated screen")
     end
 end
 
