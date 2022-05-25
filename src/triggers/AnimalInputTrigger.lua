@@ -135,7 +135,7 @@ function AnimalInputTriggerActivateable.new(animalInputTrigger)
     return self
 end
 
-function AnimalInputTriggerActivateable:getIsAcitivatable()
+function AnimalInputTriggerActivateable:getIsActivatable()
     if g_gui.currentGui ~= nil then
         return false
     end
