@@ -121,6 +121,10 @@ function AnimalScreenTrailerStorage:fillLevelToAnimals(itemIndex)
 	return math.floor(freeCapacity/fillLevelPerAnimal)
 end
 
+function AnimalScreenTrailerStorage:getIsAnimalTypeSupported(itemIndex)
+	
+end
+
 function AnimalScreenTrailerStorage:applySource(itemIndex, numItems)
 	local item = self.sourceItems[itemIndex]
 	local clusterId = item:getClusterId()
