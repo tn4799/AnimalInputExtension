@@ -2,6 +2,7 @@
 <l10n>
 	<texts>
 		<text name="ERROR_TRAILER_LEFT" 		                text="The transportation vehicle is no longer available!" />
+		<text name="error_animalTypeNotSupported"				text="This animal type is not supported!"/>
 		<text name="ui_productionPoint" 		                text="Production" />
 		<text name="shop_moveToProduction" 		                text="Move to production" />
 		<text name="shop_moveToTrailer" 		                text="Move to trailer" />
