@@ -118,7 +118,9 @@ end
 
 function AnimalInputScreen:onClose()
     AnimalInputScreen:superClass().onClose(self)
-    self.controller:reset()
+    if self.controller ~= nil then
+        self.controller:reset()
+    end
 
     self.isOpen = false
 
@@ -158,10 +160,9 @@ function AnimalInputScreen:setSelectionState(state)
             self.buttonApply:setText(self.controller:getSourceActionText())
 
             local animalIndex = self.listSource.selectedIndex
-            local storage = self:getController().storage
-            local subType = g_currentMission.animalSystem:getSubTypeByIndex(animalIndex)
-
-            if storage:getIsFillTypeSupported(subType.fillTypeIndex) then
+            
+            if self:getController():getIsFillTypeSupported(animalIndex) then
+                print("animalType is supported")
                 maxElements = math.max(1, math.min(maxElements, self.controller:getSourceMaxNumAnimals(animalIndex)))
             else
                 g_gui:showInfoDialog({
