@@ -11,13 +11,15 @@
     <multiplayer supported="true"/>
 
     <description>
-        <en><![CDATA[]]>
+        <en><![CDATA[This mod enables the posibility to use animals as inputs for productions.
+How much one animal fills your production depends on the age and the health of the animal.]]>
         </en>
-        <de><![CDATA[]]>
+        <de><![CDATA[Dieser Mod ermöglicht es, Tiere in Produktionen als Input einzufüllen.
+Wie viel Liter ein Tier bringt ist abhängig vom Alter und dem Gesundheitszustand des Tiers.]]>
         </de>
     </description>
 
-    <iconFilename>icon.dds</iconFilename>
+    <iconFilename>icon_animalInputExtension.dds</iconFilename>
     
     <extraSourceFiles>
         <sourceFile filename="src/register.lua" />
