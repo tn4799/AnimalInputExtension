@@ -159,8 +159,9 @@ function AnimalInputScreen:setSelectionState(state)
 
             local animalIndex = self.listSource.selectedIndex
             local storage = self:getController().storage
+            local subType = g_currentMission.animalSystem:getSubTypeByIndex(animalIndex)
 
-            if storage:getIsFillTypeSupported(animalIndex) then
+            if storage:getIsFillTypeSupported(subType.fillTypeIndex) then
                 maxElements = math.max(1, math.min(maxElements, self.controller:getSourceMaxNumAnimals(animalIndex)))
             else
                 g_gui:showInfoDialog({
@@ -419,8 +420,9 @@ function AnimalInputScreen:onClickApply()
     if self.selectionState == AnimalInputScreen.SELECTION_SOURCE then
         local animalIndex = self.listSource.selectedIndex
         local storage = self:getController().storage
+        local subType = g_currentMission.animalSystem:getSubTypeByIndex(animalIndex)
 
-        if storage:getIsFillTypeSupported(animalIndex) then
+        if storage:getIsFillTypeSupported(subType.fillTypeIndex) then
             local numAnimals = self.numAnimalsElement:getState()
             local text = self.controller:getApplySourceConfirmationText(animalIndex, numAnimals)
 
