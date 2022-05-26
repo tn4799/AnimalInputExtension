@@ -25,5 +25,5 @@ Wie viel Liter ein Tier bringt ist abhängig vom Alter und dem Gesundheitszustan
         <sourceFile filename="src/register.lua" />
     </extraSourceFiles>
 
-    <l10n filenamePrefix="xml/translations/l10n_" />
+    <l10n filenamePrefix="xml/translations/l10n" />
 </modDesc>
