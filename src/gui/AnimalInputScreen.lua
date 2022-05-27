@@ -160,7 +160,7 @@ function AnimalInputScreen:setSelectionState(state)
             self.buttonApply:setText(self.controller:getSourceActionText())
 
             local animalIndex = self.listSource.selectedIndex
-            
+
             if self:getController():getIsAnimalTypeSupported(animalIndex) then
                 print("animalType is supported")
                 maxElements = math.max(1, math.min(maxElements, self.controller:getSourceMaxNumAnimals(animalIndex)))
@@ -443,10 +443,8 @@ end
 function AnimalInputScreen:onClickApply()
     if self.selectionState == AnimalInputScreen.SELECTION_SOURCE then
         local animalIndex = self.listSource.selectedIndex
-        local storage = self:getController().storage
-        local subType = g_currentMission.animalSystem:getSubTypeByIndex(animalIndex)
 
-        if self:getController():getIsAnimalTypeSupported(subType.fillTypeIndex) then
+        if self:getController():getIsAnimalTypeSupported(animalIndex) then
             local numAnimals = self.numAnimalsElement:getState()
             local text = self.controller:getApplySourceConfirmationText(animalIndex, numAnimals)
 

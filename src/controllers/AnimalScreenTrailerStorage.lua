@@ -116,13 +116,16 @@ function AnimalScreenTrailerStorage:fillLevelToAnimals(itemIndex)
     local fillLevel = self.storage:getFillLevel(fillType.index)
 	local maxCapacity = self.storage:getCapacity(fillType.index)
 	local freeCapacity = maxCapacity - fillLevel
-	local fillLevelPerAnimal = self.storage.animalTypeToLitres[subType] --* cluster:getAgeFactor() * math.max(cluster:getHealthFactor(), 0.1)
+	local fillLevelPerAnimal = self.storage:getAnimalTypeToLitresByAnimalType(subType) * cluster:getAgeFactor() * math.max(cluster:getHealthFactor(), 0.1)
 
 	return math.floor(freeCapacity/fillLevelPerAnimal)
 end
 
 function AnimalScreenTrailerStorage:getIsAnimalTypeSupported(itemIndex)
-	
+	local cluster = self.trailer:getClusterById(self.sourceItems[itemIndex]:getClusterId())
+	local subType = g_currentMission.animalSystem:getSubTypeByIndex(cluster:getSubTypeIndex())
+
+	return self.storage:getIsFillTypeSupported(subType.fillTypeIndex)
 end
 
 function AnimalScreenTrailerStorage:applySource(itemIndex, numItems)
