@@ -21,7 +21,8 @@ AnimalInputStorageExtension = {
         ["HORSE_DUN"] = 1000,
         ["CHICKEN"] = 100,
         ["CHICKEN_ROOSTER"] = 100
-    }
+    },
+    GENERAL_BACKUP_VALUE = 4000
 }
 
 
@@ -41,7 +42,7 @@ function AnimalInputStorageExtension:loadStorageExtension(superFunc, components,
             local animalType = g_currentMission.animalSystem:getSubTypeByName(fillTypeName)
 
             if animalType ~= nil then
-                self.animalTypeToLitres[animalType] = xmlFile:getInt(capacityKey .. "#litersPerAnimal", AnimalInputStorageExtension.BACKUP_ANIMAL_TO_LITRES[animalType] or 500)
+                self.animalTypeToLitres[animalType.name] = xmlFile:getInt(capacityKey .. "#litersPerAnimal", AnimalInputStorageExtension.BACKUP_ANIMAL_TO_LITRES[animalType.name] or AnimalInputStorageExtension.GENERAL_BACKUP_VALUE)
             end
         end
 	end)
@@ -63,6 +64,10 @@ function AnimalInputStorageExtension:loadAnimalTrigger(superFunc, components, xm
     end
 
     return returnValue
+end
+
+function Storage:getAnimalTypeToLitresByAnimalType(animalType)
+    return self.animalTypeToLitres[animalType.name] or AnimalInputStorageExtension.BACKUP_ANIMAL_TO_LITRES[animalType.name] or AnimalInputStorageExtension.BACKUP_ANIMAL_TO_LITRES
 end
 
 Storage.load = Utils.overwrittenFunction(Storage.load, AnimalInputStorageExtension.loadStorageExtension)
