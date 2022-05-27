@@ -3,7 +3,8 @@ AnimalInputScreen = {
 	SELECTION_NONE = 0,
 	SELECTION_SOURCE = 1,
     L10N = {
-        "ERROR_TRAILER_LEFT"
+        ERROR_TRAILER_LEFT = "ERROR_TRAILER_LEFT",
+        ERROR_ANIMAL_TYPE_NOT_SUPPORTED = "error_animalTypeNotSupported"
     },
     PROFILE = {
         LIST_ITEM_NEUTRAL = "shopCategoryItem",
@@ -117,7 +118,9 @@ end
 
 function AnimalInputScreen:onClose()
     AnimalInputScreen:superClass().onClose(self)
-    self.controller:reset()
+    if self.controller ~= nil then
+        self.controller:reset()
+    end
 
     self.isOpen = false
 
@@ -157,7 +160,19 @@ function AnimalInputScreen:setSelectionState(state)
             self.buttonApply:setText(self.controller:getSourceActionText())
 
             local animalIndex = self.listSource.selectedIndex
-            maxElements = math.max(1, math.min(maxElements, self.controller:getSourceMaxNumAnimals(animalIndex)))
+            
+            if self:getController():getIsAnimalTypeSupported(animalIndex) then
+                print("animalType is supported")
+                maxElements = math.max(1, math.min(maxElements, self.controller:getSourceMaxNumAnimals(animalIndex)))
+            else
+                g_gui:showInfoDialog({
+                    text = g_i18n:getText(AnimalInputScreen.L10N.ERROR_ANIMAL_TYPE_NOT_SUPPORTED),
+                    dialogType = DialogElement.TYPE_WARNING
+                })
+                self.listSource:setDisabled(false)
+                self.numAnimalsElement:setDisabled(true)
+                self.selectionState = AnimalInputScreen.SELECTION_NONE
+            end
         end
 
         local texts = {}
@@ -371,7 +386,6 @@ end
 function AnimalInputScreen:onAnimalsChanged()
     if not self.isUpdating then
         self:updateScreen()
-        print("updated screen")
     end
 end
 
@@ -429,14 +443,26 @@ end
 function AnimalInputScreen:onClickApply()
     if self.selectionState == AnimalInputScreen.SELECTION_SOURCE then
         local animalIndex = self.listSource.selectedIndex
-        local numAnimals = self.numAnimalsElement:getState()
-        local text = self.controller:getApplySourceConfirmationText(animalIndex, numAnimals)
+        local storage = self:getController().storage
+        local subType = g_currentMission.animalSystem:getSubTypeByIndex(animalIndex)
 
-        g_gui:showYesNoDialog({
-			text = text,
-			callback = self.onYesNoSource,
-			target = self
-		})
+        if self:getController():getIsAnimalTypeSupported(subType.fillTypeIndex) then
+            local numAnimals = self.numAnimalsElement:getState()
+            local text = self.controller:getApplySourceConfirmationText(animalIndex, numAnimals)
+
+            g_gui:showYesNoDialog({
+                text = text,
+                callback = self.onYesNoSource,
+                target = self
+            })
+        else
+            g_gui:showInfoDialog({
+                text = g_i18n:getText(AnimalInputScreen.L10N.ERROR_ANIMAL_TYPE_NOT_SUPPORTED),
+		        dialogType = DialogElement.TYPE_WARNING
+            })
+
+            self:setSelectionState(AnimalInputScreen.SELECTION_NONE)
+        end
     else
         return false
     end

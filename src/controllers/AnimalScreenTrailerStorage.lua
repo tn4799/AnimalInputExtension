@@ -81,6 +81,10 @@ function AnimalScreenTrailerStorage:getSourceName()
 	return string.format("%s (%d / %d)", name, used, total)
 end
 
+function AnimalScreenTrailerStorage:getTargetName()
+	return self.production.name or AnimalScreenTrailerStorage.L10N.NAME
+end
+
 function AnimalScreenTrailerStorage:getSourceActionText()
 	return g_i18n:getText(AnimalScreenTrailerStorage.L10N.MOVE_TO_STORAGE)
 end
@@ -115,6 +119,10 @@ function AnimalScreenTrailerStorage:fillLevelToAnimals(itemIndex)
 	local fillLevelPerAnimal = self.storage.animalTypeToLitres[subType] --* cluster:getAgeFactor() * math.max(cluster:getHealthFactor(), 0.1)
 
 	return math.floor(freeCapacity/fillLevelPerAnimal)
+end
+
+function AnimalScreenTrailerStorage:getIsAnimalTypeSupported(itemIndex)
+	
 end
 
 function AnimalScreenTrailerStorage:applySource(itemIndex, numItems)
