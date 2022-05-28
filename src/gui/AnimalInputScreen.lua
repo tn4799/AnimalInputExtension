@@ -162,7 +162,6 @@ function AnimalInputScreen:setSelectionState(state)
             local animalIndex = self.listSource.selectedIndex
 
             if self:getController():getIsAnimalTypeSupported(animalIndex) then
-                print("animalType is supported")
                 maxElements = math.max(1, math.min(maxElements, self.controller:getSourceMaxNumAnimals(animalIndex)))
             else
                 g_gui:showInfoDialog({
@@ -367,20 +366,70 @@ function AnimalInputScreen:getNumberOfItemsInSection(list, section)
 
     if list == self.listSource then
         return #self.controller:getSourceItems()
+    else
+        local production = self.controller.production
+        return #production.inputFillTypeIdsArray
     end
 end
+
+function AnimalInputScreen:getCellTypeForItemInSection(list, section, index)
+	if list == self.storageList then
+		if section == 1 then
+			return "inputCell"
+		end
+	end
+end
+
 
 function AnimalInputScreen:populateCellForItemInSection(list, section, index, cell)
     local item = nil
 
 	if list == self.listSource then
 		item = self.controller:getSourceItems()[index]
+
+        cell:getAttribute("icon"):setImageFilename(item:getFilename())
+        cell:getAttribute("name"):setText(item:getName())
+        cell:getAttribute("price"):setValue(item:getPrice())
+        cell:getAttribute("highlight"):setVisible(false)
+    else
+        local fillType = nil
+        local production = self.controller.production
+
+        if section == 1 then
+            fillType = production.inputFillTypeIdsArray[index]
+        end
+
+        if fillType ~= FillType.UNKNOWN then
+			local fillLevel = production:getFillLevel(fillType)
+			local capacity = production:getCapacity(fillType)
+			local fillTypeDesc = g_fillTypeManager:getFillTypeByIndex(fillType)
+
+			cell:getAttribute("icon"):setImageFilename(fillTypeDesc.hudOverlayFilename)
+			cell:getAttribute("fillType"):setText(fillTypeDesc.title)
+			cell:getAttribute("fillLevel"):setText(g_i18n:formatVolume(fillLevel, 0))
+
+			self:setStatusBarValue(cell:getAttribute("bar"), fillLevel / capacity, true)
+		end
+	end
+end
+
+function AnimalInputScreen:setStatusBarValue(statusBarElement, value, lowIsDanger)
+	local profile = "ingameMenuProductionStorageBar"
+
+	if lowIsDanger and value < AnimalInputScreen.STATUS_BAR.LOW or not lowIsDanger and AnimalInputScreen.STATUS_BAR.HIGH < value then
+		profile = "ingameMenuProductionStorageBarDanger"
 	end
 
-	cell:getAttribute("icon"):setImageFilename(item:getFilename())
-	cell:getAttribute("name"):setText(item:getName())
-	cell:getAttribute("price"):setValue(item:getPrice())
-	cell:getAttribute("highlight"):setVisible(false)
+	statusBarElement:applyProfile(profile)
+
+	local fullWidth = statusBarElement.parent.absSize[1] - statusBarElement.margin[1] * 2
+	local minSize = 0
+
+	if statusBarElement.startSize ~= nil then
+		minSize = statusBarElement.startSize[1] + statusBarElement.endSize[1]
+	end
+
+	statusBarElement:setSize(math.max(minSize, fullWidth * math.min(1, value)), nil)
 end
 
 function AnimalInputScreen:onAnimalsChanged()

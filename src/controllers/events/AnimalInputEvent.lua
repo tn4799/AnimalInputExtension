@@ -24,7 +24,6 @@ function AnimalInputEvent.new(sourceObject, storage, clusterId, numAnimals)
     self.clusterId = clusterId
     self.numAnimals = numAnimals
 
-    print("sorage init: " .. tostring(self.storage))
     return self
 end
 
@@ -52,7 +51,6 @@ function AnimalInputEvent:readStream(streamId, connection)
 		self.storage = NetworkUtil.readNodeObject(streamId)
 		self.clusterId = streamReadInt32(streamId)
 		self.numAnimals = streamReadUInt8(streamId)
-        print("storage: " .. tostring(self.storage))
 	else
 		self.errorCode = streamReadUIntN(streamId, 3)
 	end
@@ -84,7 +82,7 @@ function AnimalInputEvent:run(connection)
         local fillType = g_fillTypeManager:getFillTypeByIndex(subType.fillTypeIndex)
         local fillLevel = self.storage:getFillLevel(fillType.index)
 
-        local fillLevelPerAnimal = self.storage.animalTypeToLitres[subType]
+        local fillLevelPerAnimal = self.storage:getAnimalTypeToLitresByAnimalType(subType)
         local deltaFillLevel = fillLevelPerAnimal * self.numAnimals * cluster:getAgeFactor() * math.max(cluster:getHealthFactor(), 0.1)
 
         self.storage:setFillLevel(fillLevel + deltaFillLevel, fillType.index)
