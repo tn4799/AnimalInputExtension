@@ -7,7 +7,7 @@ function AnimalInputTrigger.new(isServer, isClient)
     local self = Object.new(isServer, isClient, AnimalInputTrigger_mt)
     self.customEnvironment = g_currentMission.loadingMapModName
     self.triggerNode = nil
-    self.title = g_i18n:getText(AnimalScreenTrailerStorage.L10N.NAME)
+    self.title = g_i18n:getText("ui_productionPoint")
     self.animals = nil
     self.activatable = AnimalInputTriggerActivateable.new(self)
     --self.isPlayerInRange = false

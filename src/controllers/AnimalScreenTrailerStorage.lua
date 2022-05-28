@@ -11,7 +11,7 @@ AnimalScreenTrailerStorage = {
 	},
 	MOVE_TO_STORAGE_ERROR_CODE_MAPPING = {
 		[AnimalInputEvent.MOVE_SUCCESS] = {
-			text = AnimalScreenTrailerStorage.L10N.MOVE_TO_STORAGE,
+			text = "shop_moveToProduction",
 			warning = false
 		},
 		[AnimalInputEvent.MOVE_ERROR_NO_PERMISSION] = {
@@ -23,7 +23,7 @@ AnimalScreenTrailerStorage = {
 			warning = true
 		},
 		[AnimalInputEvent.MOVE_ERROR_STORAGE_DOES_NOT_EXIST] = {
-			text = AnimalScreenTrailerStorage.L10N.ERROR_NO_STORAGE,
+			text = "shop_messageStorageDoesNotExist",
 			warning = true
 		},
 		[AnimalInputEvent.MOVE_ERROR_INVALID_CLUSTER] = {
