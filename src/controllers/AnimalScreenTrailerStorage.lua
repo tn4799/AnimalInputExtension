@@ -6,39 +6,40 @@ AnimalScreenTrailerStorage = {
 		MOVE_TO_STORAGE = "shop_moveToProduction",
 		MOVE_TO_TRAILER = "shop_moveToTrailer",
 		CONFIRM_MOVE_TO_STORAGE = "shop_confirmMoveToProduction",
-		CONFIRM_MOVE_TO_TRAILER = "shop_doYouWantToMoveAnimalsToTrailer"
+		CONFIRM_MOVE_TO_TRAILER = "shop_doYouWantToMoveAnimalsToTrailer",
+		ERROR_NO_STORAGE = "shop_messageStorageDoesNotExist"
 	},
 	MOVE_TO_STORAGE_ERROR_CODE_MAPPING = {
 		[AnimalInputEvent.MOVE_SUCCESS] = {
-			text = "shop_movedToStorage",
+			text = AnimalScreenTrailerStorage.L10N.MOVE_TO_STORAGE,
 			warning = false
 		},
 		[AnimalInputEvent.MOVE_ERROR_NO_PERMISSION] = {
-			text = "shop_messageNoPermissionToTradeAnimals",
+			text = "shop_messageNoPermissionToTradeAnimals", -- standard giants translation
 			warning = true
 		},
 		[AnimalInputEvent.MOVE_ERROR_SOURCE_OBJECT_DOES_NOT_EXIST] = {
-			text = "shop_messageTrailerDoesNotExist",
+			text = "shop_messageTrailerDoesNotExist", -- standard giants translation
 			warning = true
 		},
 		[AnimalInputEvent.MOVE_ERROR_STORAGE_DOES_NOT_EXIST] = {
-			text = "shop_messageStorageDoesNotExist",
+			text = AnimalScreenTrailerStorage.L10N.ERROR_NO_STORAGE,
 			warning = true
 		},
 		[AnimalInputEvent.MOVE_ERROR_INVALID_CLUSTER] = {
-			text = "shop_messageInvalidCluster",
+			text = "shop_messageInvalidCluster", -- standard giants translation
 			warning = true
 		},
 		[AnimalInputEvent.MOVE_ERROR_ANIMAL_NOT_SUPPORTED] = {
-			text = "shop_messageAnimalTypeNotSupported",
+			text = "shop_messageAnimalTypeNotSupported", -- standard giants translation
 			warning = true
 		},
 		[AnimalInputEvent.MOVE_ERROR_NOT_ENOUGH_SPACE] = {
-			text = "shop_messageNotEnoughSpaceAnimals",
+			text = "shop_messageNotEnoughSpaceAnimals", -- standard giants translation
 			warning = true
 		},
 		[AnimalInputEvent.MOVE_ERROR_NOT_ENOUGH_ANIMALS] = {
-			text = "shop_messageNotEnoughAnimals",
+			text = "shop_messageNotEnoughAnimals", -- standard giants translation
 			warning = true
 		}
 	}

@@ -8,5 +8,6 @@
 		<text name="shop_moveToTrailer" 		                text="In den Anhänger einladen!" />
 		<text name="shop_confirmMoveToProduction"				text="Möchtest du diese %d Tiere (%s) in die Produktion ausladen?"/>
 		<text name="shop_doYouWantToMoveAnimalsToTrailer"		text="Möchtest du diese %d Tiere (%s) in den Anhänger einladen?"/>
+		<text name="shop_messageStorageDoesNotExist"			text="Es existiert kein Lager!"/>
 	</texts>
 </l10n>

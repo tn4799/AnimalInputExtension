@@ -8,5 +8,6 @@
 		<text name="shop_moveToTrailer" 		                text="Move to trailer" />
 		<text name="shop_confirmMoveToProduction"				text="Do you want to move %d animals (%s) to the production?"/>
 		<text name="shop_doYouWantToMoveAnimalsToTrailer"		text="Do you want to move %d animals (%s) to the trailer?"/>
+		<text name="shop_messageStorageDoesNotExist"			text="There is no Storage!"/>
 	</texts>
 </l10n>
