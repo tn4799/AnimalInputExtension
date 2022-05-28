@@ -12,10 +12,16 @@
 
     <description>
         <en><![CDATA[This mod enables the posibility to use animals as inputs for productions.
-How much one animal fills your production depends on the age and the health of the animal.]]>
+How much one animal fills your production depends on the age and the health of the animal.
+
+If you want to know how you can use animals as input in your own mods, please take a look at my Butcher.
+For support and suggestions please visit <a href="https://github.com/tn4799/AnimalInputExtension/issues">Github</a> and open an issue.]]>
         </en>
         <de><![CDATA[Dieser Mod ermöglicht es, Tiere in Produktionen als Input einzufüllen.
-Wie viel Liter ein Tier bringt ist abhängig vom Alter und dem Gesundheitszustand des Tiers.]]>
+Wie viel Liter ein Tier bringt ist abhängig vom Alter und dem Gesundheitszustand des Tiers.
+
+Wenn du wissen willst wie du mit diesem Mod deine eigenen Mods mit Tierinput realisieren kannst, dann schau dir meinen Schlachter an.
+Öffnet für Support und Verbesserungsvorschläge bitte ein Issue auf <a href="https://github.com/tn4799/AnimalInputExtension/issues">Github</a>.]]>
         </de>
     </description>
 
