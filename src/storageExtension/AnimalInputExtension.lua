@@ -56,14 +56,21 @@ end
 
 function AnimalInputStorageExtension:loadAnimalTrigger(superFunc, components, xmlFile, key, customEnv, i3dMappings)
     local returnValue = superFunc(self, components, xmlFile, key, customEnv, i3dMappings)
-    local animalTriggerNode = xmlFile:getValue(key .. ".animalInputTrigger#node", nil, components, i3dMappings)
+    self.animalTriggerNode = xmlFile:getValue(key .. ".animalInputTrigger#node", nil, components, i3dMappings)
 
-    if animalTriggerNode ~= nil then
+    if self.animalTriggerNode ~= nil then
         self.animalTrigger = AnimalInputTrigger.new(self.isServer, self.isClient)
         self.animalTrigger:load(animalTriggerNode, self.storage, self)
     end
 
     return returnValue
+end
+
+function AnimalInputStorageExtension:deleteAnimalTrigger()
+    if self.animalTriggerNode ~= nil then
+	removeTrigger(self.animalTriggerNode)
+	self.animalTriggerNode = nil
+    end
 end
 
 function Storage:getAnimalTypeToLitresByAnimalType(animalType)
@@ -74,3 +81,4 @@ Storage.load = Utils.overwrittenFunction(Storage.load, AnimalInputStorageExtensi
 
 ProductionPoint.registerXMLPaths = Utils.appendedFunction(ProductionPoint.registerXMLPaths, AnimalInputStorageExtension.registerXMLPaths)
 ProductionPoint.load = Utils.overwrittenFunction(ProductionPoint.load, AnimalInputStorageExtension.loadAnimalTrigger)
+ProductionPoint.delete = Utils.prependedFunction(ProductionPoint.delete, AnimalInputStorageExtension.deleteAnimalTrigger)
