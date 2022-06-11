@@ -67,7 +67,9 @@ function AnimalInputStorageExtension:loadAnimalTrigger(superFunc, components, xm
 end
 
 function AnimalInputStorageExtension:deleteAnimalTrigger()
-    self.animalTrigger:delete()
+    if self.animalTrigger then
+        self.animalTrigger:delete()
+    end
 end
 
 function Storage:getAnimalTypeToLitresByAnimalType(animalType)
