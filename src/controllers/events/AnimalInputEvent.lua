@@ -11,7 +11,7 @@ AnimalInputEvent = {
 }
 local AnimalInputEvent_mt = Class(AnimalInputEvent, Event)
 
-InitObjectClass(AnimalInputEvent, "AnimalInputEvent")
+InitEventClass(AnimalInputEvent, "AnimalInputEvent")
 
 function AnimalInputEvent.emptyNew()
     return Event.new(AnimalInputEvent_mt)
