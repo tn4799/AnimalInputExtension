@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="no" ?>
-<modDesc descVersion="66">
+<modDesc descVersion="72">
     <author>tn4799</author>
-    <version>1.0.0.0</version>
+    <version>1.0.0.1</version>
 
     <title>
         <en>Animal Input Extension</en>
@@ -14,19 +14,27 @@
         <en><![CDATA[This mod enables the posibility to use animals as inputs for productions.
 How much one animal fills your production depends on the age and the health of the animal.
 
-If you want to know how you can use animals as input in your own mods, please take a look at my Butcher.
-For support and suggestions please visit <a href="https://github.com/tn4799/AnimalInputExtension/issues">Github</a> and open an issue.]]>
+If you want to know how you can use animals as input in your own mods, please take a look at the <a href="https://www.farming-simulator.com/mod.php?&mod_id=256204">Horse Training Facility</a>. This one is intended as a demonstration mod that demonstrates how you can add an animal input to your produktion
+For support and suggestions please visit <a href="https://github.com/tn4799/AnimalInputExtension/issues">Github</a> and open an issue.
+
+Changelog:
+V1.0.0.1
+ - Fixed animals not being put into production in multiplayer]]>
         </en>
         <de><![CDATA[Dieser Mod ermöglicht es, Tiere in Produktionen als Input einzufüllen.
 Wie viel Liter ein Tier bringt ist abhängig vom Alter und dem Gesundheitszustand des Tiers.
 
-Wenn du wissen willst wie du mit diesem Mod deine eigenen Mods mit Tierinput realisieren kannst, dann schau dir meinen Schlachter an.
-Öffnet für Support und Verbesserungsvorschläge bitte ein Issue auf <a href="https://github.com/tn4799/AnimalInputExtension/issues">Github</a>.]]>
+Wenn du wissen willst wie du mit diesem Mod deine eigenen Mods mit Tierinput realisieren kannst, dann schau die <a href="https://www.farming-simulator.com/mod.php?&mod_id=256204">Pferdetrainingsanlage</a> an. Diese ist der Demonstrationsmod, der zeigt, wie man einen Tierinput in eine Produktion einbauen kann.
+Öffnet für Support und Verbesserungsvorschläge bitte ein Issue auf <a href="https://github.com/tn4799/AnimalInputExtension/issues">Github</a>.
+
+Changelog:
+V1.0.0.1
+ - Fehler behoben, dass im Multiplayer keine Tiere in Produktionen eingefüllt werden.]]>
         </de>
     </description>
 
     <iconFilename>icon_animalInputExtension.dds</iconFilename>
-    
+
     <extraSourceFiles>
         <sourceFile filename="src/register.lua" />
     </extraSourceFiles>
